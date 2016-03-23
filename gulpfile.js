@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var webserver = require('gulp-webserver');
+var browserify = require('gulp-browserify')
 
 var path = {
     'bower': './bower_components',
@@ -34,6 +35,7 @@ gulp.task('scripts', function() {
        path.bower + '/foundation/js/foundation/foundation.alert.js'
    ]) 
    .pipe(concat('app.js'))
+   .pipe(browserify())
    .pipe(gulp.dest('./public/js'));
    
    return gulp.src(path.bower + '/modernizr/modernizr.js')
