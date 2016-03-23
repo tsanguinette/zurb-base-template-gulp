@@ -2,7 +2,8 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var webserver = require('gulp-webserver');
-var browserify = require('gulp-browserify')
+var imagemin = require('gulp-imagemin');
+var pngquant = require('pngquant');
 
 var path = {
     'bower': './bower_components',
@@ -35,7 +36,6 @@ gulp.task('scripts', function() {
        path.bower + '/foundation/js/foundation/foundation.alert.js'
    ]) 
    .pipe(concat('app.js'))
-   .pipe(browserify())
    .pipe(gulp.dest('./public/js'));
    
    return gulp.src(path.bower + '/modernizr/modernizr.js')
@@ -47,6 +47,16 @@ gulp.task('fonts', function() {
     .pipe(gulp.dest('public/fonts'))
 })
 
+gulp.task('imagemin', function() {
+    return gulp.src('assets/images/*')
+    .pipe(imagemin({
+        progressive: true,
+        svgoPlugins: [{removeViewBox: false}],
+        use: [pngquant()]
+    }))
+    .pipe(gulp.dest('public/images'))
+})
+
 gulp.task('webserver', function() {
     gulp.src('public/')
         .pipe(webserver({
@@ -55,4 +65,4 @@ gulp.task('webserver', function() {
         }));
 });
 
-gulp.task('default', ['styles', 'fonts', 'scripts', 'webserver']);
+gulp.task('default', ['styles', 'fonts', 'imagemin', 'scripts', 'webserver']);
