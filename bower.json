@@ -1,0 +1,16 @@
+{
+  "name": "zurbtemplate",
+  "description": "Base boilerplate for Zurb foundation with Gulp and Bower.",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "^5.5.3"
+  }
+}
